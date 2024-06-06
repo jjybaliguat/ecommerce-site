@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Vendo {
+model Product {
   id String @id @default(uuid())
   name String
   price Int
@@ -28,7 +28,7 @@ model Variant {
   name String
   imagePath String
   vendoId String
-  vendo Vendo @relation(fields: [vendoId], references: [id], onDelete: Cascade)
+  vendo Product @relation(fields: [vendoId], references: [id], onDelete: Cascade)
   orders Order[]
 }
 
@@ -47,11 +47,12 @@ model Order {
   variantId String
   deliveryStatus String @default("Processing")
   paymentStatus String @default("Unpaid")
+  amountToPay Int
   mod String
   dateOfPurchase DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  vendo Vendo @relation(fields: [vendoId], references: [id], onDelete: Restrict)
+  vendo Product @relation(fields: [vendoId], references: [id], onDelete: Restrict)
   variant Variant @relation(fields: [variantId], references: [id])
 }

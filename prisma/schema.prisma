@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Vendo {
+  id String @id @default(uuid())
+  name String
+  price Int
+  decription String
+  imagePath String
+  isAvailableForPurchase Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders Order[]
+  variants Variant[]
+}
+
+model Variant {
+  id String @id @default(uuid())
+  name String
+  imagePath String
+  vendoId String
+  vendo Vendo @relation(fields: [vendoId], references: [id], onDelete: Cascade)
+  orders Order[]
+}
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders Order[]
+}
+
+model Order {
+  id String @id @default(uuid())
+  userId String
+  vendoId String
+  variantId String
+  deliveryStatus String @default("Processing")
+  paymentStatus String @default("Unpaid")
+  mod String
+  dateOfPurchase DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vendo Vendo @relation(fields: [vendoId], references: [id], onDelete: Restrict)
+  variant Variant @relation(fields: [variantId], references: [id])
+}

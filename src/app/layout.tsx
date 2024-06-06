@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "R&J SHOP",
+  title: "Jasmine Vending Machine SHOP & Accessories",
   description: "High quality and affordable vending machines.",
 };
 

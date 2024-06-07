@@ -1,8 +1,9 @@
 import React from 'react'
+import PageHeader from '../_components/PageHeader'
 
 function OrdersPage() {
   return (
-    <div>OrdersPage</div>
+    <PageHeader>Orders</PageHeader>
   )
 }
 

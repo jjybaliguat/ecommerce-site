@@ -99,7 +99,7 @@ export function ProductForm() {
                     <Label className="font-bold">Specs</Label>
                     <div className="flex flex-col gap-2">
                         {specs?.map((spec, index) => (
-                            <div className="relative flex gap-2 items-center">
+                            <div key={index} className="relative flex gap-2 items-center">
                                 <div className="space-y-2">
                                     <Label htmlFor={`key${index}`}>Key</Label>
                                     <Input id={`key${index}`} type="text"
@@ -139,7 +139,7 @@ export function ProductForm() {
                 <div className="space-y-2">
                     <h1 className="font-bold">Variants</h1>
                     {variants?.map((variant, index) => (
-                        <div className="space-y-2">
+                        <div key={index} className="space-y-2">
                             <div className="relative flex gap-2 items-center">
                                 <div className="space-y-2 flex-grow">
                                     <Label htmlFor={`variant${index}`}>Name</Label>

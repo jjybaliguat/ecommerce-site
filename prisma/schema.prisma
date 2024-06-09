@@ -14,21 +14,32 @@ model Product {
   id String @id @default(uuid())
   name String
   price Int
-  decription String
+  description String
   imagePath String
   isAvailableForPurchase Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders Order[]
   variants Variant[]
+  specs Specs[]
+}
+
+model Specs {
+  id String @id @default(uuid())
+  key String
+  value String
+  productId String
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Variant {
   id String @id @default(uuid())
   name String
+  price Int
   imagePath String
-  vendoId String
-  vendo Product @relation(fields: [vendoId], references: [id], onDelete: Cascade)
+  isAvailableForPurchase Boolean @default(true)
+  productId String
+  vendo Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   orders Order[]
 }
 
@@ -43,7 +54,7 @@ model User {
 model Order {
   id String @id @default(uuid())
   userId String
-  vendoId String
+  productId String
   variantId String
   deliveryStatus String @default("Processing")
   paymentStatus String @default("Unpaid")
@@ -53,6 +64,6 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  vendo Product @relation(fields: [vendoId], references: [id], onDelete: Restrict)
+  vendo Product @relation(fields: [productId], references: [id], onDelete: Restrict)
   variant Variant @relation(fields: [variantId], references: [id])
 }

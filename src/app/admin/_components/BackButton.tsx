@@ -11,7 +11,7 @@ export default function BackButton({children}: {children: ReactNode}){
             onClick={()=>router.back()}
             variant="outline"
         >
-            <ArrowLeft className="w-4 h-4 mr-3"/>
+            <ArrowLeft className="w-4 h-4 mr-2"/>
             {children}
         </Button>
     )

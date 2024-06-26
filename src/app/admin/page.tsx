@@ -26,8 +26,8 @@ async function getUserData() {
 
 async function getProductsData(){
     const [activeProductsCount, inactiveProductsCount] = await Promise.all([
-        db.product.count({where: {isAvailableForPurchase: true}}),
-        db.product.count({where: {isAvailableForPurchase: false}})
+        db.products.count({where: {isAvailableForPurchase: true}}),
+        db.products.count({where: {isAvailableForPurchase: false}})
     ])
 
     return {

@@ -21,7 +21,7 @@ export default function AdminLayout({
           <NavLink href="/admin/products">Products</NavLink>
           <NavLink href="/admin/clients">Clients</NavLink>
         </Nav>
-        <div className="container my-6">
+        <div className="container py-8">
           {children}
           <ToggleTheme />
           </div>

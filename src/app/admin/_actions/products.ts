@@ -31,9 +31,9 @@ export async function addProduct(formData: FormData) {
       await fs.writeFile(`public${finalImagePath}`, Buffer.from(await file.arrayBuffer()))
 
     const rawFormData = {
-        name: formData.get('name'),
+        name: formData.get('name') as string,
         price: formData.get('price'),
-        description: formData.get('description'),
+        description: formData.get('description') as string,
         specs: JSON.parse(formData.get('specs') as string),
         variants: newVariants,
         imagePath: finalImagePath
@@ -49,10 +49,10 @@ export async function addProduct(formData: FormData) {
     console.log(rawFormData)
     // console.log(formData)
 
-    await db.product.create({data: {
-        name: JSON.stringify(rawFormData.name),
+    await db.products.create({data: {
+        name: rawFormData.name,
         price: Number(rawFormData.price),
-        description: JSON.stringify(rawFormData.description),
+        description: rawFormData.description,
         imagePath: rawFormData.imagePath,
         specs: {
           create: rawFormData.specs.map((spec: { key: any; value: any; }) => ({
